@@ -1,9 +1,13 @@
+body{
+	background-color: gray;
+}
 #griglia{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     width: 280px;
+	background-color: lightgray;
 }
 .box{
     width: 20px;
