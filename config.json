@@ -1,0 +1,8 @@
+{
+	"default_setting": {
+		"game_velocity": 500,
+		"initial_position_x": 5,
+		"initial_position_y": 5,
+		"initial_direction": "down"
+	}
+}
