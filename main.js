@@ -6,90 +6,41 @@ class game {
 	position_y = 4;
 	griglia = document.getElementById("griglia");
 	div = document.createElement("li");
+    Snake = 0
 	constructor() {
 		this.CreationGame();
+        this.Snake = new Snake(this.position_x, this.position_y)
+        this.Snake.GetSnakeList()
 		this.StartGame();
 	}
 	CreationGame() {
 		for (let y = 0; y < 12; y++) {
 			for (let x = 0; x < 12; x++) {
-				this.griglia.innerHTML += `<li id="x${x}_y${y}" class="box box-x${x} box-y${y}"></li>`;
+				this.griglia.innerHTML += `<li id="x${x}_y${y}" class="cell cell-x${x} cell-y${y}"></li>`;
 			}
 		}
 	}
 	StartGame() {
 		setInterval(() => {
-
-			this.Update();
+            this.snakeposition = this.Snake.Movment(this.direction)
+            this.ClearGrid()
+            this.snakeposition.forEach(snakePiece => {
+                this.SetSnakePiece(snakePiece)
+            });
 		}, 500);
 	}
 	Changedirection(direction){
 		this.direction = direction
 	}
-	MovmentLeft() {
-		if (this.position_x == 0) {
-			this.getposition().classList.remove("active");
-			this.position_x = 11;
-			this.getposition().classList.add("active");
-		} else {
-			this.getposition().classList.remove("active");
-			this.position_x--;
-			this.getposition().classList.add("active");
-		}
+	
+	ClearGrid() {
+        let allCells = document.getElementsByClassName("cell");
+        Array.from(allCells).forEach((cell) => {
+            cell.classList.remove("active")
+        });
 	}
-	MovmentRight() {
-		if (this.position_x == 11) {
-			this.getposition().classList.remove("active");
-			this.position_x = 0;
-			this.getposition().classList.add("active");
-		} else {
-			this.getposition().classList.remove("active");
-			this.position_x++;
-			this.getposition().classList.add("active");
-		}
-	}
-	MovmentUp() {
-		if (this.position_y == 0) {
-			this.getposition().classList.remove("active");
-			this.position_y = 11;
-			this.getposition().classList.add("active");
-		} else {
-			this.getposition().classList.remove("active");
-			this.position_y--;
-			this.getposition().classList.add("active");
-		}
-	}
-	MovmentDown() {
-		if (this.position_y == 11) {
-			this.getposition().classList.remove("active");
-			this.position_y = 0;
-			this.getposition().classList.add("active");
-		} else {
-			this.getposition().classList.remove("active");
-			this.position_y++;
-			this.getposition().classList.add("active");
-		}
-	}
-	Update() {
-		switch (this.direction) {
-			case "left":
-				this.MovmentLeft(this.direction);
-				break;
-			case "up":
-				this.MovmentUp(this.direction);
-				break;
-			case "right":
-				this.MovmentRight(this.direction);
-				break;
-			case "down":
-				this.MovmentDown(this.direction);
-				break;
-			default:
-				break;
-		}
-	}
-	getposition() {
-		return document.getElementById(`x${this.position_x}_y${this.position_y}`);
+    SetSnakePiece(snakePiece) {
+		document.getElementById(`x${snakePiece.pos_x}_y${snakePiece.pos_y}`).classList.add("active");
 	}
 }
 //var b = new Snake()
