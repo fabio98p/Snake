@@ -23,7 +23,6 @@ class game {
 		}
 	}
 	StartGame() {
-        console.log("INIZIO");
 		setInterval(() => {
             this.CounterMoves()
             this.snakeposition = this.Snake.Movment(this.direction)
@@ -51,7 +50,6 @@ class game {
 }
 //var b = new Snake()
 var a = new game()
-console.log("gioco creato");
 document.addEventListener("keydown", (event) => {
 	if (event.isComposing || event.keyCode === 87) {
 		a.Changedirection("up")

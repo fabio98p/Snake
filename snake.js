@@ -120,7 +120,6 @@ class Snake {
                 "direction": "vertical/orrizzontal"
             })
         }
-        console.log(this.snakelist);
 	}
 
     RemoveQueueOfSnake(){
@@ -128,6 +127,7 @@ class Snake {
             return item.id !== this.GetQueueSnake()[0].id
         })
 	}
+    
     GetSnakeList(){
         return this.snakelist
     }
