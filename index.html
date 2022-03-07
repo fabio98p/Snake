@@ -8,8 +8,24 @@
     <link rel="stylesheet" href="master.css">
 </head>
 <body>
-    <ul id="griglia">
-    </ul>
+    <div class="game">
+        <div class="info">
+            <div class="score">
+                <span>Punteggio: </span>
+                <span id="score">0</span>
+            </div>
+            <h1>Snake</h1>
+            <div class="moves">
+                <span>Mosse: </span>
+                <span id="moves">0</span>
+            </div>
+        </div>
+        <ul id="grid"></ul>
+        <div class="extern_menu">
+            <button onmouseup="a.StartGame()" id="btn_start_game" class="btn">Inizia Gioco</button>
+            <button onmouseup="StartGame()" id="btn_open_menu" class="btn">Opzioni</button>
+        </div>
+    </div>
     <script src="./snake.js"></script>
     <script src="./main.js"></script>
 </body>
