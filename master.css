@@ -1,56 +1,64 @@
-*{
+* {
 	box-sizing: border-box;
 	border: 0px;
 	margin: 0px;
 	padding: 0px;
 }
-body{
+body {
 	background-color: #3e4e04;
 }
-#grid{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 246px;
+#grid {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 246px;
 	background-color: #93bb05;
-    border: 3px solid black;
-
+	border: 3px solid black;
 }
-.game{
-    height: 100vh;
-    width: 60%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    background-color: #6f8816;
+.game {
+	height: 100vh;
+	width: 60%;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	flex-direction: column;
+	background-color: #6f8816;
 }
-.info{
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    align-items: center;
+.info {
+	display: flex;
+	justify-content: space-evenly;
+	width: 100%;
+	align-items: center;
 }
-.cell{
-    width: 20px;
-    height: 20px;
-    list-style: none;
-    /* border: 1px solid black; */
+.cell {
+	width: 20px;
+	height: 20px;
+	list-style: none;
+	/* border: 1px solid black; */
 }
-.active{
-    background-color: crimson;
+.headOfSnake {
+	background-color: crimson;
 }
-.extern_menu{
-    display: flex;
-    flex-direction: column;
-    height: 80px;
-    justify-content: space-between;
+.bodyOfSnake {
+	background-color: blue;
 }
-.extern_menu > .btn{
-    background-color: #93bb05;
-    padding: 5px 12px;
-    border-radius: 8px;
-    border: 1px solid black;
+.queueOfSnake {
+	background-color: yellow;
+}
+.empty {
+	background-color: #93bb05;
+}
+.extern_menu {
+	display: flex;
+	flex-direction: column;
+	height: 80px;
+	justify-content: space-between;
+}
+.extern_menu > .btn {
+	background-color: #93bb05;
+	padding: 5px 12px;
+	border-radius: 8px;
+	border: 1px solid black;
 }

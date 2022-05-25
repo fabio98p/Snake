@@ -28,3 +28,5 @@ cambio velocita serpente
 cambio spown rate tartarughe
 
 dimensioni campo
+
+correggiere il fatto che possa tornare indietro sulla stessa direzione
