@@ -1,20 +1,18 @@
+/// todo: implementare il cambiamento di cose nella classe domgridmodel
 class Game {
 	gamestarted = false
 	direction = 'left'
 	initPosition_x = 4
 	initPosition_y = 4
 	htmlGrid = document.getElementById('grid')
-	jsonGrid = {
-		dimension_x: 12,
-		dimension_y: 12,
-		grid: []
-	}
+	gridModel = new GridModel(12, 12)
 	div = document.createElement('li')
 	Snake = 0
 	score = 0
 	moves = 0
 	constructor() {
-		this.CreationGame()
+		this.grid.CreateGrid(this.htmlGrid)
+        this.grid.CreateSnake()
 		this.CounterMoves()
 		this.Snake = new Snake(this.position_x, this.position_y)
 		//this.Point = new Point(this.jsonGrid.dimension_x, this.jsonGrid.dimension_y);
@@ -23,20 +21,6 @@ class Game {
 	CreationGame() {
 		for (let y = 0; y < this.jsonGrid.dimension_y; y++) {
 			for (let x = 0; x < this.jsonGrid.dimension_y; x++) {
-				//creazuibe json con all'interno le posizioni di tutto
-				this.jsonGrid.grid.push({
-					//sistemare la cosa
-					id: `x${x}_y${y}`,
-					x: x,
-					y: y,
-					class: 'empty',
-					snake: {
-						snakelength: null,
-						partofsnake: [],
-						direction: null
-					}
-				})
-				//creazione nel dom
 				this.htmlGrid.innerHTML += `<li id="x${x}_y${y}" class="cell cell-x${x} cell-y${y}"></li>`
 			}
 		}

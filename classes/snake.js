@@ -3,14 +3,7 @@ class Snake {
 	position_x = 0
 	position_y = 0
 
-	constructor(pos_x, pos_y) {
-		this.snakelist.push({
-			id: 0,
-			pos_x: pos_x,
-			pos_y: pos_y,
-			type: 'body/head',
-			direction: 'vertical/orrizzontal'
-		})
+	constructor() {
 	}
 
 	Movment(direction, jsonGrid) {
