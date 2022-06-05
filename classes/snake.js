@@ -1,69 +1,60 @@
-class Snake {
-	snakelist = []
-	position_x = 0
-	position_y = 0
+class SnakeMovment {
+	constructor() {}
 
-	constructor() {
-	}
-
-	Movment(direction, jsonGrid) {
-		let previusHead
+	Movment(direction, grid) {
+		let previusHeadCell
 		let newIdHead
 		let newQueueLength
-		jsonGrid.grid.map(cell => {
+		grid.map(cell => {
 			if (cell.snake.snakelength) {
-				//update position of body
-				cell.snake.snakelength--
-
+				cell.snake.UpdateSnakeLengthMinusOne()
 				//update previus head
 				if (cell.snake.partofsnake.includes('headOfSnake')) {
-					previusHead = cell
-					cell.snake.partofsnake = cell.snake.partofsnake.filter(part => part !== 'headOfSnake')
-					cell.snake.partofsnake.push('bodyOfSnake')
-					cell.class = 'bodyOfSnake'
+					previusHeadCell = cell
+					cell.snake.UpdateOldSnakeHead()
+					cell.updateHtmlClass('bodyOfSnake')
 				}
 
 				//remove previus queue and find the new queue
 				if (cell.snake.partofsnake.includes('queueOfSnake')) {
-					newQueueLength = cell.snake.snakelength + 1
-					cell = this.RemovePartOfSnake(previusHead)
+					newQueueLength = cell.snake.SnakeLength() + 1
+					cell.snake.RemovePartOfSnake()
+					cell.updateHtmlClass('empty')
 				}
 			}
 		})
 
 		switch (direction) {
 			case 'left':
-				newIdHead = this.MovmentLeft(previusHead)
+				newIdHead = this.MovmentLeft(previusHeadCell)
 				break
 			case 'up':
-				newIdHead = this.MovmentUp(previusHead)
+				newIdHead = this.MovmentUp(previusHeadCell)
 				break
 			case 'right':
-				newIdHead = this.MovmentRight(previusHead)
+				newIdHead = this.MovmentRight(previusHeadCell)
 				break
 			case 'down':
-				newIdHead = this.MovmentDown(previusHead)
+				newIdHead = this.MovmentDown(previusHeadCell)
 				break
 		}
 
-		jsonGrid.grid.forEach(cell => {
+		grid.forEach(cell => {
 			if (cell.id == newIdHead) {
-				cell.snake.partofsnake.push('headOfSnake')
-				cell.snake.snakelength = 1
-				cell.class = 'headOfSnake'
+				cell.snake.SetHeadOfSnake()
+				cell.updateHtmlClass('headOfSnake')
 			}
 
 			//add new queue previus finded
 			if (cell.snake.snakelength == newQueueLength) {
-				cell.snake.partofsnake = cell.snake.partofsnake.filter(part => part !== 'bodyOfSnake')
-				cell.snake.partofsnake.push('queueOfSnake')
+				cell.snake.SetQueueOfSnake()
 				if (!cell.snake.partofsnake.includes('headOfSnake')) {
-					cell.class = 'queueOfSnake'
+					cell.UpdateHtmlClass('queueOfSnake')
 				}
 			}
 		})
 
-		return jsonGrid
+		return grid
 	}
 	MovmentLeft(previusHead) {
 		//find the new id of head
@@ -84,13 +75,5 @@ class Snake {
 	MovmentDown(previusHead) {
 		if (previusHead.y == 11) return `x${previusHead.x}_y${0}`
 		else return `x${previusHead.x}_y${previusHead.y + 1}`
-	}
-
-	RemovePartOfSnake(cell) {
-		cell.snake.snakelength = null
-		cell.snake.partofsnake = []
-		cell.snake.direction = null
-		cell.class = 'empty'
-		return cell
 	}
 }

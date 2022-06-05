@@ -4,58 +4,34 @@ class Game {
 	direction = 'left'
 	initPosition_x = 4
 	initPosition_y = 4
-	htmlGrid = document.getElementById('grid')
-	gridModel = new GridModel(12, 12)
-	div = document.createElement('li')
-	Snake = 0
+	dimension_x = 12
+	dimension_y = 12
 	score = 0
 	moves = 0
+
+	gridModel
+	domGrid
 	constructor() {
-		this.grid.CreateGrid(this.htmlGrid)
-        this.grid.CreateSnake()
-		this.CounterMoves()
-		this.Snake = new Snake(this.position_x, this.position_y)
+		// create logic of grid and initialize the snake
+		this.gridModel = new GridModel(this.dimension_x, this.dimension_y)
+		this.grid.CreateSnake(this.initPosition_x, this.initPosition_y)
+		//create grid on dom
+		this.domGrid = new domGridModel(this.gridModel.dimension_x, this.gridModel.dimension_y)
+		this.domGrid.UpdateGrid(this.grid)
+
 		//this.Point = new Point(this.jsonGrid.dimension_x, this.jsonGrid.dimension_y);
 		//this.Points.CreateTurtle(this.Snake.GetSnakeList())
-	}
-	CreationGame() {
-		for (let y = 0; y < this.jsonGrid.dimension_y; y++) {
-			for (let x = 0; x < this.jsonGrid.dimension_y; x++) {
-				this.htmlGrid.innerHTML += `<li id="x${x}_y${y}" class="cell cell-x${x} cell-y${y}"></li>`
-			}
-		}
-		// set the initial position of the snake (headOfSnake)
-		let initialPosition = this.jsonGrid.grid.filter(x => x.x == this.initPosition_x && x.y == this.initPosition_y)[0]
-		initialPosition.class = 'headOfSnake'
-		initialPosition.snake.partofsnake.push('headOfSnake')
-		initialPosition.snake.partofsnake.push('queueOfSnake')
-		initialPosition.snake.snakelength = 1
-		this.UpdateGrid(this.jsonGrid)
 	}
 
 	StartGame() {
 		if (!this.gamestarted) {
 			setInterval(() => {
 				this.CounterMoves()
-				this.jsonGrid = this.Snake.Movment(this.direction, this.jsonGrid) //update the snake position on the grid
-				this.ClearGrid()
-				this.UpdateGrid(this.jsonGrid)
+				this.gridModel.SnakeMovmentUpdate(this.direction) //update the snake position on the grid
+				this.domGrid.UpdateGrid(this.gridModel.gridCells)
 			}, 100)
 			this.gamestarted = true
 		}
-	}
-
-	UpdateGrid(jsonGrid) {
-		jsonGrid.grid.forEach(cell => {
-			document.getElementById(`${cell.id}`).classList.add(`${cell.class}`)
-		})
-	}
-
-	ClearGrid() {
-		let allCells = document.getElementsByClassName('cell')
-		Array.from(allCells).forEach(cell => {
-			cell.classList.remove('active', 'headOfSnake', 'bodyOfSnake', 'queueOfSnake', 'empty')
-		})
 	}
 
 	Changedirection(direction) {

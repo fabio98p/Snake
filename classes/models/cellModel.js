@@ -9,11 +9,13 @@ class CellModel {
 		this.x = x
 		this.y = y
 		this.snake = new SnakeModel()
-		this.htmlClass = "empty"
+		this.htmlClass = 'empty'
 	}
-    updateSnakeCell(cell) {
-        this.snake = cell.snake
-        this.htmlClass = cell.htmlClass
-    }
-
+	UpdateHtmlCLass(className) {
+		this.htmlClass = className
+	}
+	updateSnakeCell(cell) {
+		this.snake = cell.snake
+		this.htmlClass = cell.htmlClass
+	}
 }
