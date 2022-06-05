@@ -6,20 +6,20 @@ class SnakeMovment {
 		let newIdHead
 		let newQueueLength
 		grid.map(cell => {
-			if (cell.snake.snakelength) {
+			if (cell.snake.snakeLength) {
 				cell.snake.UpdateSnakeLengthMinusOne()
 				//update previus head
-				if (cell.snake.partofsnake.includes('headOfSnake')) {
+				if (cell.snake.roleOfSnake.includes('headOfSnake')) {
 					previusHeadCell = cell
 					cell.snake.UpdateOldSnakeHead()
-					cell.updateHtmlClass('bodyOfSnake')
+					cell.UpdateHtmlClass('bodyOfSnake')
 				}
 
 				//remove previus queue and find the new queue
-				if (cell.snake.partofsnake.includes('queueOfSnake')) {
+				if (cell.snake.roleOfSnake.includes('queueOfSnake')) {
 					newQueueLength = cell.snake.SnakeLength() + 1
 					cell.snake.RemovePartOfSnake()
-					cell.updateHtmlClass('empty')
+					cell.UpdateHtmlClass('empty')
 				}
 			}
 		})
@@ -42,13 +42,13 @@ class SnakeMovment {
 		grid.forEach(cell => {
 			if (cell.id == newIdHead) {
 				cell.snake.SetHeadOfSnake()
-				cell.updateHtmlClass('headOfSnake')
+				cell.UpdateHtmlClass('headOfSnake')
 			}
 
 			//add new queue previus finded
 			if (cell.snake.snakelength == newQueueLength) {
 				cell.snake.SetQueueOfSnake()
-				if (!cell.snake.partofsnake.includes('headOfSnake')) {
+				if (!cell.snake.roleOfSnake.includes('headOfSnake')) {
 					cell.UpdateHtmlClass('queueOfSnake')
 				}
 			}

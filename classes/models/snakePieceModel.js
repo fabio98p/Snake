@@ -3,11 +3,11 @@ class SnakePieceModel {
 	roleOfSnake
 	direction
 	constructor() {
-		snakeLength: null
-		roleOfSnake: []
-		direction: null
+		this.snakeLength = null
+		this.roleOfSnake = []
+		this.direction = null
 	}
-	UdateSnakeLengthMinusOne() {
+	UpdateSnakeLengthMinusOne() {
 		this.snakeLength = this.snakeLength - 1
 	}
 
@@ -42,14 +42,14 @@ class SnakePieceModel {
 	}
 
 	SetQueueOfSnake() {
-		this.roleByRemove('bodyOfSnake')
+		this.RemoveRoleOfSnake('bodyOfSnake')
 		this.roleOfSnake.push('queueOfSnake')
 	}
 
 	RemoveRoleOfSnake(roleByRemove) {
-		const index = array.indexOf(`${roleByRemove}`)
+		const index = this.roleOfSnake.indexOf(`${roleByRemove}`)
 		if (index > -1) {
-			array.splice(index, 1)
+			this.roleOfSnake.splice(index, 1)
 		}
 	}
 }

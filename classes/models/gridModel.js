@@ -8,7 +8,7 @@ class GridModel {
 		this.dimension_y = dimension_y
 		for (let y = 0; y < this.dimension_y; y++) {
 			for (let x = 0; x < this.dimension_y; x++) {
-				this.grid.push(new Cell(x, y))
+				this.gridCells.push(new CellModel(x, y))
 			}
 		}
 		this.snakeMovment = new SnakeMovment()
@@ -16,7 +16,7 @@ class GridModel {
 
 	CreateSnake(initPosition_x, initPosition_y) {
 		const initialPositionCell = this.gridCells.filter(cell => {
-			cell.x === initPosition_x && cell.y === initPosition_y
+			return cell.x === initPosition_x && cell.y === initPosition_y
 		})[0]
 		initialPositionCell.UpdateHtmlClass('headOfSnake')
 		initialPositionCell.snake.SnakeHead()

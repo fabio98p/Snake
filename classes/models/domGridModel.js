@@ -9,7 +9,7 @@ class DomGridModel {
 
 		for (let y = 0; y < this.dimension_y; y++) {
 			for (let x = 0; x < this.dimension_y; x++) {
-				idGrid.innerHTML += `<li id="x${x}_y${y}" class="cell cell-x${x} cell-y${y}"></li>`
+				this.htmlIdOfGrid.innerHTML += `<li id="x${x}_y${y}" class="cell cell-x${x} cell-y${y}"></li>`
 			}
 		}
 	}

@@ -8,10 +8,10 @@ class CellModel {
 		this.id = `x${x}_y${y}`
 		this.x = x
 		this.y = y
-		this.snake = new SnakeModel()
+		this.snake = new SnakePieceModel()
 		this.htmlClass = 'empty'
 	}
-	UpdateHtmlCLass(className) {
+	UpdateHtmlClass(className) {
 		this.htmlClass = className
 	}
 	updateSnakeCell(cell) {
