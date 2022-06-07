@@ -19,7 +19,7 @@ class GridModel {
 			return cell.x === initPosition_x && cell.y === initPosition_y
 		})[0]
 		initialPositionCell.UpdateHtmlClass('headOfSnake')
-		initialPositionCell.snake.SnakeHead()
+		initialPositionCell.snake.CreateSnake()
 	}
 
 	SnakeMovmentUpdate(direction) {

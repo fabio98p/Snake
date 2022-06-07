@@ -23,7 +23,6 @@ class SnakeMovment {
 				}
 			}
 		})
-
 		switch (direction) {
 			case 'left':
 				newIdHead = this.MovmentLeft(previusHeadCell)
@@ -38,22 +37,19 @@ class SnakeMovment {
 				newIdHead = this.MovmentDown(previusHeadCell)
 				break
 		}
-
 		grid.forEach(cell => {
 			if (cell.id == newIdHead) {
 				cell.snake.SetHeadOfSnake()
 				cell.UpdateHtmlClass('headOfSnake')
 			}
-
 			//add new queue previus finded
-			if (cell.snake.snakelength == newQueueLength) {
+			if (cell.snake.snakeLength == newQueueLength) {
 				cell.snake.SetQueueOfSnake()
 				if (!cell.snake.roleOfSnake.includes('headOfSnake')) {
 					cell.UpdateHtmlClass('queueOfSnake')
 				}
 			}
 		})
-
 		return grid
 	}
 	MovmentLeft(previusHead) {

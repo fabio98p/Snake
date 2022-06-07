@@ -16,9 +16,10 @@ class SnakePieceModel {
 		this.roleOfSnake.push('bodyOfSnake')
 	}
 
-	SnakeHead() {
+	CreateSnake() {
 		this.snakeLength = 1
 		this.roleOfSnake.push('headOfSnake')
+		this.roleOfSnake.push('queueOfSnake')
 		this.direction = null
 	}
 	SnakeOldHead() {
