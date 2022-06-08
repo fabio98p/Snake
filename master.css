@@ -50,13 +50,13 @@ body {
 .empty {
 	background-color: #93bb05;
 }
-.extern_menu {
+#extern_menu {
 	display: flex;
 	flex-direction: column;
 	height: 80px;
 	justify-content: space-between;
 }
-.extern_menu > .btn {
+#extern_menu > .btn {
 	background-color: #93bb05;
 	padding: 5px 12px;
 	border-radius: 8px;

@@ -1,9 +1,10 @@
 import {Game} from './classes/game.js'
 //sito keydown (https://keycode.info/)
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
-
 //var b = new Snake()
 var a = new Game()
+document.getElementById("btn_start_game").addEventListener("click", ()=>{a.StartGame()})
+document.getElementById("btn_open_menu").addEventListener("click", ()=>{cibo()})
 function cibo() {
 	console.log("fame");
 }
