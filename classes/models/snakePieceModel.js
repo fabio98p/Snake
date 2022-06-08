@@ -1,4 +1,4 @@
-class SnakePieceModel {
+export class SnakePieceModel {
 	snakeLength
 	roleOfSnake
 	direction

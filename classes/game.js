@@ -1,5 +1,7 @@
-/// todo: implementare il cambiamento di cose nella classe domgridmodel
-class Game {
+import { GridModel } from './models/gridModel.js'
+import { DomGridModel } from './models/domGridModel.js'
+
+export class Game {
 	gamestarted = false
 	direction = 'left'
 	initPosition_x = 4

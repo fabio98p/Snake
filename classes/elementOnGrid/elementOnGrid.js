@@ -1,4 +1,4 @@
-class ElementOnGrid {
+export class ElementOnGrid {
 	dimennsione_x
 	dimennsione_y
 	constructor(dimennsione_x, dimennsione_y) {

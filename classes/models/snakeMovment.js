@@ -1,4 +1,4 @@
-class SnakeMovment {
+export class SnakeMovment {
 	constructor() {}
 
 	Movment(direction, grid) {

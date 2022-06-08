@@ -1,4 +1,4 @@
-class DomGridModel {
+export class DomGridModel {
 	htmlIdOfGrid
 	dimension_x
 	dimension_y

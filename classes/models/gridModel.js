@@ -1,4 +1,7 @@
-class GridModel {
+import {CellModel} from './cellModel.js';
+import {SnakeMovment} from './snakeMovment.js';
+
+export class GridModel {
 	dimension_x
 	dimension_y
 	gridCells = []

@@ -22,19 +22,11 @@
 			</div>
 			<ul id="grid"></ul>
 			<div class="extern_menu">
+				<!-- https://stackoverflow.com/questions/44590393/es6-modules-undefined-onclick-function-after-import -->
 				<button onmouseup="a.StartGame()" id="btn_start_game" class="btn">Inizia Gioco</button>
-				<button onmouseup="StartGame()" id="btn_open_menu" class="btn">Opzioni</button>
+				<button onmouseup="cibo()" id="btn_open_menu" class="btn">Opzioni</button>
 			</div>
 		</div>
-		<script src="./classes/models/snakePieceModel.js"></script>
-		<script src="./classes/models/cellModel.js"></script>
-		<script src="./classes/models/gridModel.js"></script>
-		<script src="./classes/models/domGridModel.js"></script>
-		
-        <script src="./classes/game.js"></script>
-		<script src="./classes/elementOnGrid/elementOnGrid.js"></script>
-		<script src="./classes/elementOnGrid/point.js"></script>
-		<script src="./classes/snake.js"></script>
-		<script src="./main.js"></script>
+		<script src="./main.js" defer type='module'></script>
 	</body>
 </html>

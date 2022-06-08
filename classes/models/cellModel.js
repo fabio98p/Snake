@@ -1,4 +1,6 @@
-class CellModel {
+import {SnakePieceModel} from './snakePieceModel.js';
+
+export class CellModel {
 	id
 	x
 	y

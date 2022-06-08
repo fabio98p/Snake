@@ -1,8 +1,12 @@
+import {Game} from './classes/game.js'
 //sito keydown (https://keycode.info/)
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 
 //var b = new Snake()
 var a = new Game()
+function cibo() {
+	console.log("fame");
+}
 document.addEventListener('keydown', event => {
 	if (event.isComposing || event.keyCode === 87) {
 		a.Changedirection('up')
