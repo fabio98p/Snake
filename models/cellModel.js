@@ -6,6 +6,9 @@ export class CellModel {
 	y
 	htmlClass
 
+	grid
+	gridId
+
 	snake
 	snakeId
 
@@ -15,43 +18,63 @@ export class CellModel {
 	turtle
 	turtleId
 
+    apple
+    appleId
+
 	constructor(x, y) {
 		this.id = `x${x}_y${y}`
 		this.x = x
 		this.y = y
 		this.htmlClass = 'empty'
-		// this.snake = new SnakePieceModel()
-	}
-	
-	get getid() {
-		return this.id
-	}
-	set setid(id) {
-		this.id = id
-	}
-	get getx() {
-		return this.x
-	}
-	set setx(x) {
-		this.x = x
-	}
-	get gety() {
-		return this.y
-	}
-	set sety(y) {
-		this.y = y
-	}
-	get gethtmlClass() {
-		return this.htmlClass
-	}
-	set sethtmlClass(htmlClass) {
-		this.htmlClass = htmlClass
 	}
 
-	get getstone() {
+	//#region
+	get getId() {
+		return this.id
+	}
+	set setId(id) {
+		this.id = id
+	}
+	get getX() {
+		return this.x
+	}
+	set setX(x) {
+		this.x = x
+	}
+	get getY() {
+		return this.y
+	}
+	set setY(y) {
+		this.y = y
+	}
+	get getHtmlClass() {
+		return this.htmlClass
+	}
+	set setHtmlClass(htmlClass) {
+		this.htmlClass = htmlClass
+	}
+	//#endregion
+
+	//#region relation with grid
+	get getGrid() {
+		return this.grid
+	}
+	set setGrid(grid) {
+		this.grid = grid
+	}
+    get getGridId() {
+        return this.gridId
+    }
+	set setGridId(gridId) {
+		this.gridId = gridId
+	}
+	//#endregion
+
+	//#region relation with sotone
+	get getStone() {
 		return this.stone
 	}
-	set setstone(stone) {
+	set setStone(stone) {
 		this.stone = stone
 	}
 	get getStoneId() {
@@ -60,31 +83,49 @@ export class CellModel {
 	set setStoneId(stoneId) {
 		this.stoneId = stoneId
 	}
+	//#endregion
 
-	get getturtle() {
+	//#region relation with turtle
+	get getTurtle() {
 		return this.turtle
 	}
-	set setturtle(turtle) {
+	set setTurtle(turtle) {
 		this.turtle = turtle
 	}
 	get getTurtleId() {
 		return this.turtleId
 	}
-	set setturtleId(turtleId) {
+	set setTurtleId(turtleId) {
 		this.turtleId = turtleId
 	}
+	//#endregion
+	//#region relation with apple
 
-	get getsnake() {
+	get getApple() {
+		return this.apple
+	}
+	set setApple(apple) {
+		this.apple = apple
+	}
+	get getAppleId() {
+		return this.appleId
+	}
+	set setAppleId(appleId) {
+		this.appleId = appleId
+	}
+	//#endregion
+	//#region relation with snake
+	get getSnake() {
 		return this.snake
 	}
-	set setsnake(snake) {
+	set setSnake(snake) {
 		this.snake = snake
 	}
-	get getsnakeId() {
+	get getSnakeId() {
 		return this.snakeId
 	}
-	set setsnakeId(snakeId) {
+	set setSnakeId(snakeId) {
 		this.snakeId = snakeId
 	}
-
+	//#endregion
 }

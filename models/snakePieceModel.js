@@ -1,56 +1,59 @@
 export class SnakePieceModel {
-	snakeLength
+	id
 	roleOfSnake
 	direction
+
+	snake
+	snakeId
+	cell
+	cellId
 	constructor() {
 		this.snakeLength = null
-		this.roleOfSnake = []
-		this.direction = null
-	}
-	UpdateSnakeLengthMinusOne() {
-		this.snakeLength = this.snakeLength - 1
-	}
-
-	UpdateOldSnakeHead() {
-		this.roleOfSnake = this.roleOfSnake.filter(part => part !== 'headOfSnake')
-		this.roleOfSnake.push('bodyOfSnake')
-	}
-
-	CreateSnake() {
-		this.snakeLength = 1
-		this.roleOfSnake.push('headOfSnake')
-		this.roleOfSnake.push('queueOfSnake')
-		this.direction = null
-	}
-	SnakeOldHead() {
-		this.snakeLength = 2
-		this.roleOfSnake.push('bodyOfSnake')
-		this.direction = null
-	}
-	SnakeLength() {
-		return this.snakeLength
-	}
-
-	RemovePartOfSnake() {
-		this.snakeLength = null
-		this.roleOfSnake = []
 		this.direction = null
 	}
 
-	SetHeadOfSnake() {
-		this.roleOfSnake.push('headOfSnake')
-		this.snakeLength = 1
+	//#region
+	get getRoleOfSnake() {
+		return this.roleOfSnake
 	}
+	set setRoleOfSnake(id) {
+		this.roleOfSnake = roleOfSnake
+	}
+	get getDirection() {
+		return this.direction
+	}
+	set setDirection(x) {
+		this.direction = direction
+	}
+	//#endregion
 
-	SetQueueOfSnake() {
-		this.RemoveRoleOfSnake('bodyOfSnake')
-		this.roleOfSnake.push('queueOfSnake')
+	//#region relation with snake
+	get getSnake() {
+		return this.snake
 	}
+	set setSnake(snake) {
+		this.snake = snake
+	}
+	set setSnakeId(snakeId) {
+		this.snakeId = snakeId
+	}
+	get getSnakeId() {
+		return this.snakeId
+	}
+	//#endregion+
 
-	RemoveRoleOfSnake(roleByRemove) {
-		const index = this.roleOfSnake.indexOf(`${roleByRemove}`)
-		if (index > -1) {
-			this.roleOfSnake.splice(index, 1)
-		}
+	//#region relation with cell
+	get getCell() {
+		return this.cell
 	}
+	set setCell(cell) {
+		this.cell = cell
+	}
+	set setCellId(cellId) {
+		this.cellId = cellId
+	}
+	get getCellId() {
+		return this.cellId
+	}
+	//#endregion
 }
