@@ -39,7 +39,15 @@ export class Game {
 	Changedirection(direction) {
 		this.direction = direction
 	}
+
 	CounterMoves() {
-		document.getElementById('moves').innerHTML = ++this.moves
+		this.moves = this.moves + 1
+		document.getElementById('moves').innerHTML = this.moves
+	}
+
+	GetPoint() {
+		this.score = this.score + 1
+		document.getElementById('score').innerHTML = this.score
+		this.gridModel.GrowSnake()
 	}
 }

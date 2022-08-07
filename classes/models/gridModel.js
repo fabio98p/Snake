@@ -37,4 +37,9 @@ export class GridModel {
 			cell.snake.direction = null
 		})
 	}
+
+	GrowSnake(){
+		console.log("snake is growna");
+		this.SnakeMovment.MovmentWithGrow()
+	}
 }

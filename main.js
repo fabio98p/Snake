@@ -25,4 +25,8 @@ document.addEventListener('keydown', event => {
 		a.Changedirection('left')
 		return
 	}
+	if (event.isComposing || event.keyCode === 32) {
+		a.GetPoint()
+		return
+	}
 })
