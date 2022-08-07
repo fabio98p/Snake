@@ -1,13 +1,27 @@
-export class SnakeMovment {
-	constructor() {}
+import { CellModel } from "./cellModel"
 
+export class SnakeMovment {
+	SnakeEatPosition = []
+	constructor() {}
 	Movment(direction, grid) {
+		let snakeLengthNextRound = false
 		let previusHeadCell
 		let newIdHead
 		let newQueueLength
 		grid.map(cell => {
+			this.SnakeEatPosition.map(cellSnakeEat =>{
+				if (cell.id == cellSnakeEat.id) {
+					cell.roleOfSnake.push("snakeFood")
+				}
+				else{
+					cell.roleOfSnake
+				}
+			})
 			if (cell.snake.snakeLength) {
-				cell.snake.UpdateSnakeLengthMinusOne()
+				if(cell.snake.roleOfSnake.includes('snakeFood') && cell.snake.roleOfSnake.includes('queueOfSnake')){
+
+					cell.snake.UpdateSnakeLengthMinusOne()
+				}
 				//update previus head
 				if (cell.snake.roleOfSnake.includes('headOfSnake')) {
 					previusHeadCell = cell
@@ -17,9 +31,20 @@ export class SnakeMovment {
 
 				//remove previus queue and find the new queue
 				if (cell.snake.roleOfSnake.includes('queueOfSnake')) {
+					if(cell.snake.roleOfSnake.includes('snakeFood')){
+						snakeLengthNextRound = true
+					}
 					newQueueLength = cell.snake.SnakeLength() + 1
 					cell.snake.RemovePartOfSnake()
 					cell.UpdateHtmlClass('empty')
+				}
+				if (snakeLengthNextRound) {
+					snakeLengthNextRound = false
+					grid.map(cell => {//da spostare sopra
+						if (cell.snake.snakeLength == null){
+							cell.snake.snakeLength++
+						}
+					})
 				}
 			}
 		})
@@ -52,6 +77,7 @@ export class SnakeMovment {
 		})
 		return grid
 	}
+
 	MovmentLeft(previusHead) {
 		//find the new id of head
 		if (previusHead.x == 0) return `x${11}_y${previusHead.y}`
@@ -71,5 +97,15 @@ export class SnakeMovment {
 	MovmentDown(previusHead) {
 		if (previusHead.y == 11) return `x${previusHead.x}_y${0}`
 		else return `x${previusHead.x}_y${previusHead.y + 1}`
+	}
+
+	MovmentWithGrow(direction, grid){
+		grid.map(cell => {
+			if(cell.snake.roleOfSnake.includes('headOfSnake')){
+				this.SnakeEatPosition.push(CellModel(headOfSnake.x, headOfSnake.y))
+			}
+			//cell.snake.roleOfSnake.push("SnakeFood")
+		})
+		this.Movment(direction, grid)
 	}
 }
