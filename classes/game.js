@@ -46,6 +46,7 @@ export class Game {
 	}
 
 	GetPoint() {
+		console.log("punto");
 		this.score = this.score + 1
 		document.getElementById('score').innerHTML = this.score
 		this.gridModel.GrowSnake()

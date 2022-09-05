@@ -1,5 +1,5 @@
-import {CellModel} from './cellModel.js';
-import {SnakeMovment} from './snakeMovment.js';
+import { CellModel } from './cellModel.js'
+import { SnakeMovment } from './snakeMovment.js'
 
 export class GridModel {
 	dimension_x
@@ -27,6 +27,7 @@ export class GridModel {
 
 	SnakeMovmentUpdate(direction) {
 		this.gridCells = this.snakeMovment.Movment(direction, this.gridCells)
+		this.gridCells = this.SetMainRoleOfCell(gridCells)
 	}
 
 	ClearGrid() {
@@ -38,8 +39,30 @@ export class GridModel {
 		})
 	}
 
-	GrowSnake(){
-		console.log("snake is growna");
+	SetMainRoleOfCell(grid) {
+		grid.map(cell => {
+			if (cell.snake.roleOfSnake.FindRoleOfSnake('queueOfSnake')) {
+				cell.UpdateHtmlClass('queueOfSnake')
+			} 
+			else if(cell.snake.roleOfSnake.FindRoleOfSnake('headOfSnake')) {
+				cell.UpdateHtmlClass('headOfSnake')
+			}
+			else if(cell.snake.roleOfSnake.FindRoleOfSnake('bodyOfSnake')) {
+				if (cell.snake.roleOfSnake.FindRoleOfSnake('snakeFood')) {
+					cell.UpdateHtmlClass('snakeFood')
+				} 
+				else {
+					cell.UpdateHtmlClass('bodyOfSnake')
+				}
+			}
+			else{
+				cell.UpdateHtmlClass("empty")
+			}
+		})
+	}
+
+	GrowSnake() {
+		console.log('snake is growna')
 		this.SnakeMovment.MovmentWithGrow()
 	}
 }

@@ -1,4 +1,4 @@
-import { CellModel } from "./cellModel"
+import { CellModel } from "./cellModel.js"
 
 export class SnakeMovment {
 	SnakeEatPosition = []
@@ -9,14 +9,25 @@ export class SnakeMovment {
 		let newIdHead
 		let newQueueLength
 		grid.map(cell => {
+			//if there is a food in a snake add the snakefood role
 			this.SnakeEatPosition.map(cellSnakeEat =>{
+				if(cell.id == cellSnakeEat.id && cell.FindRoleOfSnake("queueOfSnake")){
+					//todo: cambiare questo modo di rimuovere le cose e trovarne uno piu carino
+					const index = this.SnakeEatPosition.indexOf(`${cellSnakeEat}`)
+					if (index > -1) {
+						this.roleOfSnake.splice(index, 1)
+					}
+					//qua mettere il fatto che si allunghi la coda
+					//percio cambiare per tutto lo snake la lenght i role e tutte le cose del caso
+				}
 				if (cell.id == cellSnakeEat.id) {
-					cell.roleOfSnake.push("snakeFood")
+					cell.AddRoleOfSnake("snakeFood")
 				}
 				else{
-					cell.roleOfSnake
+					cell.snake.RemoveRoleOfSnake("snakeFood")
 				}
 			})
+			
 			if (cell.snake.snakeLength) {
 				if(cell.snake.roleOfSnake.includes('snakeFood') && cell.snake.roleOfSnake.includes('queueOfSnake')){
 
@@ -26,7 +37,6 @@ export class SnakeMovment {
 				if (cell.snake.roleOfSnake.includes('headOfSnake')) {
 					previusHeadCell = cell
 					cell.snake.UpdateOldSnakeHead()
-					cell.UpdateHtmlClass('bodyOfSnake')
 				}
 
 				//remove previus queue and find the new queue
@@ -36,7 +46,6 @@ export class SnakeMovment {
 					}
 					newQueueLength = cell.snake.SnakeLength() + 1
 					cell.snake.RemovePartOfSnake()
-					cell.UpdateHtmlClass('empty')
 				}
 				if (snakeLengthNextRound) {
 					snakeLengthNextRound = false
@@ -65,14 +74,10 @@ export class SnakeMovment {
 		grid.forEach(cell => {
 			if (cell.id == newIdHead) {
 				cell.snake.SetHeadOfSnake()
-				cell.UpdateHtmlClass('headOfSnake')
 			}
 			//add new queue previus finded
 			if (cell.snake.snakeLength == newQueueLength) {
 				cell.snake.SetQueueOfSnake()
-				if (!cell.snake.roleOfSnake.includes('headOfSnake')) {
-					cell.UpdateHtmlClass('queueOfSnake')
-				}
 			}
 		})
 		return grid
@@ -104,7 +109,7 @@ export class SnakeMovment {
 			if(cell.snake.roleOfSnake.includes('headOfSnake')){
 				this.SnakeEatPosition.push(CellModel(headOfSnake.x, headOfSnake.y))
 			}
-			//cell.snake.roleOfSnake.push("SnakeFood")
+			//cell.snake.AddRoleOfSnake("SnakeFood")
 		})
 		this.Movment(direction, grid)
 	}

@@ -13,18 +13,18 @@ export class SnakePieceModel {
 
 	UpdateOldSnakeHead() {
 		this.roleOfSnake = this.roleOfSnake.filter(part => part !== 'headOfSnake')
-		this.roleOfSnake.push('bodyOfSnake')
+		this.AddRoleOfSnake('bodyOfSnake')
 	}
 
 	CreateSnake() {
 		this.snakeLength = 1
-		this.roleOfSnake.push('headOfSnake')
-		this.roleOfSnake.push('queueOfSnake')
+		this.AddRoleOfSnake('headOfSnake')
+		this.AddRoleOfSnake('queueOfSnake')
 		this.direction = null
 	}
 	SnakeOldHead() {
 		this.snakeLength = 2
-		this.roleOfSnake.push('bodyOfSnake')
+		this.AddRoleOfSnake('bodyOfSnake')
 		this.direction = null
 	}
 	SnakeLength() {
@@ -38,19 +38,30 @@ export class SnakePieceModel {
 	}
 
 	SetHeadOfSnake() {
-		this.roleOfSnake.push('headOfSnake')
+		this.AddRoleOfSnake('headOfSnake')
 		this.snakeLength = 1
 	}
 
 	SetQueueOfSnake() {
 		this.RemoveRoleOfSnake('bodyOfSnake')
-		this.roleOfSnake.push('queueOfSnake')
+		this.AddRoleOfSnake('queueOfSnake')
 	}
 
-	RemoveRoleOfSnake(roleByRemove) {
-		const index = this.roleOfSnake.indexOf(`${roleByRemove}`)
+	RemoveRoleOfSnake(roleToRemove) {
+		const index = this.roleOfSnake.indexOf(`${roleToRemove}`)
 		if (index > -1) {
 			this.roleOfSnake.splice(index, 1)
 		}
+	}
+
+	AddRoleOfSnake(roleToAdd) {
+		//todo: qua c'e' un errore controllare se si toglie l'if
+		if (!this.FindRoleOfSnake(roleToAdd)) {
+			this.AddRoleOfSnake(roleToAdd)
+		}
+	}
+
+	FindRoleOfSnake(roleToFind){
+		return this.roleOfSnake.includes(roleToFind)
 	}
 }
