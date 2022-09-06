@@ -21,7 +21,6 @@ export class GridModel {
 		const initialPositionCell = this.gridCells.filter(cell => {
 			return cell.x === initPosition_x && cell.y === initPosition_y
 		})[0]
-		initialPositionCell.UpdateHtmlClass('headOfSnake')
 		initialPositionCell.snake.CreateSnake()
 	}
 
@@ -39,16 +38,16 @@ export class GridModel {
 		})
 	}
 
-	SetMainRoleOfCell(grid) {
-		grid.map(cell => {
-			if (cell.snake.roleOfSnake.FindRoleOfSnake('queueOfSnake')) {
+	SetMainRoleOfCell() {
+		this.gridCells.map(cell => {
+			if (cell.snake.FindRoleOfSnake('queueOfSnake')) {
 				cell.UpdateHtmlClass('queueOfSnake')
 			} 
-			else if(cell.snake.roleOfSnake.FindRoleOfSnake('headOfSnake')) {
+			else if(cell.snake.FindRoleOfSnake('headOfSnake')) {
 				cell.UpdateHtmlClass('headOfSnake')
 			}
-			else if(cell.snake.roleOfSnake.FindRoleOfSnake('bodyOfSnake')) {
-				if (cell.snake.roleOfSnake.FindRoleOfSnake('snakeFood')) {
+			else if(cell.snake.FindRoleOfSnake('bodyOfSnake')) {
+				if (cell.snake.FindRoleOfSnake('snakeFood')) {
 					cell.UpdateHtmlClass('snakeFood')
 				} 
 				else {

@@ -2,6 +2,7 @@ import { CellModel } from "./cellModel.js"
 
 export class SnakeMovment {
 	SnakeEatPosition = []
+    AllPartOfSnake = [] // todo: impklementare questo
 	constructor() {}
 	Movment(direction, grid) {
 		let snakeLengthNextRound = false
@@ -12,11 +13,8 @@ export class SnakeMovment {
 			//if there is a food in a snake add the snakefood role
 			this.SnakeEatPosition.map(cellSnakeEat =>{
 				if(cell.id == cellSnakeEat.id && cell.FindRoleOfSnake("queueOfSnake")){
-					//todo: cambiare questo modo di rimuovere le cose e trovarne uno piu carino
-					const index = this.SnakeEatPosition.indexOf(`${cellSnakeEat}`)
-					if (index > -1) {
-						this.roleOfSnake.splice(index, 1)
-					}
+                    this.SnakeEatPosition.filter(SnakeEatPositionCell => SnakeEatPositionCell.id !== cell.id)
+
 					//qua mettere il fatto che si allunghi la coda
 					//percio cambiare per tutto lo snake la lenght i role e tutte le cose del caso
 				}

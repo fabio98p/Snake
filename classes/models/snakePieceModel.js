@@ -48,17 +48,14 @@ export class SnakePieceModel {
 	}
 
 	RemoveRoleOfSnake(roleToRemove) {
-		const index = this.roleOfSnake.indexOf(`${roleToRemove}`)
-		if (index > -1) {
-			this.roleOfSnake.splice(index, 1)
-		}
+        this.SnakeEatPosition.filter(role => role !== roleToRemove)
 	}
 
 	AddRoleOfSnake(roleToAdd) {
-		//todo: qua c'e' un errore controllare se si toglie l'if
 		if (!this.FindRoleOfSnake(roleToAdd)) {
-			this.AddRoleOfSnake(roleToAdd)
+			return this.roleOfSnake.push(roleToAdd)
 		}
+        return false
 	}
 
 	FindRoleOfSnake(roleToFind){
