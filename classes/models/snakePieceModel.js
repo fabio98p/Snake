@@ -10,11 +10,8 @@ export class SnakePieceModel extends CellModel {
 		this.snakeLength = null
 		this.roleOfSnake = []
 		this.direction = null
-		if (snakeLength == 0) this.CreateSnake()
-        if(snakeLength > 0) this.AddPartOfSnake(snakeLength)
-	}
-	UpdateSnakeLengthMinusOne() {
-		this.snakeLength = this.snakeLength - 1
+        this.AddPartOfSnake(snakeLength)
+
 	}
 
 	UpdateOldSnakeHead() {
@@ -22,46 +19,13 @@ export class SnakePieceModel extends CellModel {
 		this.AddRoleOfSnake('bodyOfSnake')
 	}
 
-	CreateSnake() {
-		this.snakeLength = 1
-		this.AddRoleOfSnake('headOfSnake')
-		this.AddRoleOfSnake('queueOfSnake')
-		this.direction = null
-	}
-
 	AddPartOfSnake(snakeLength) {
 		this.snakeLength = snakeLength + 1
 		this.AddRoleOfSnake('headOfSnake')
 		this.direction = null
-		if (snakeLength == 1) {
+		if (snakeLength == 1 || snakeLength == 0) {
 			this.AddRoleOfSnake('queueOfSnake')
 		}
-	}
-
-	SnakeOldHead() {
-		this.snakeLength = 2
-		this.AddRoleOfSnake('bodyOfSnake')
-		this.RemoveRoleOfSnake('headOfSnake')
-		this.direction = null
-	}
-	SnakeLength() {
-		return this.snakeLength
-	}
-
-	RemovePartOfSnake() {
-		this.snakeLength = null
-		this.roleOfSnake = []
-		this.direction = null
-	}
-
-	SetHeadOfSnake() {
-		this.AddRoleOfSnake('headOfSnake')
-		this.snakeLength = 1
-	}
-
-	SetQueueOfSnake() {
-		this.RemoveRoleOfSnake('bodyOfSnake')
-		this.AddRoleOfSnake('queueOfSnake')
 	}
 
 	RemoveRoleOfSnake(roleToRemove) {

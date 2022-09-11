@@ -1,9 +1,7 @@
-import { CellModel } from './cellModel.js'
 import { SnakePieceModel } from './snakePieceModel.js'
 
 export class SnakeMovment {
-	// SnakeFoodPosition = []
-	Snake = [] // todo: impklementare questo
+	Snake = []
 
 	constructor(initPosition_x, initPosition_y) {
 		this.Snake.push(new SnakePieceModel(initPosition_x, initPosition_y, this.Snake.length))
@@ -81,7 +79,6 @@ export class SnakeMovment {
         previusHead.RemoveRoleOfSnake("headOfSnake")
         previusHead.RemoveRoleOfSnake("queueOfSnake")
         previusHead.AddRoleOfSnake("bodyOfSnake")
-
         this.Snake.map(cell => cell.snakeLength--)
 	}
 
@@ -101,7 +98,6 @@ export class SnakeMovment {
         previusHead.RemoveRoleOfSnake("queueOfSnake")
         previusHead.AddRoleOfSnake("bodyOfSnake")
         this.Snake.map(cell => cell.snakeLength--)
-
 	}
 
 	MovmentUp(previusHead) {
@@ -120,7 +116,6 @@ export class SnakeMovment {
         previusHead.RemoveRoleOfSnake("queueOfSnake")
         previusHead.AddRoleOfSnake("bodyOfSnake")
         this.Snake.map(cell => cell.snakeLength--)
-
 	}
 
 	MovmentDown(previusHead) {
@@ -139,19 +134,17 @@ export class SnakeMovment {
         previusHead.RemoveRoleOfSnake("queueOfSnake")
         previusHead.AddRoleOfSnake("bodyOfSnake")
         this.Snake.map(cell => cell.snakeLength--)
-
 	}
 
-	// MovmentWithGrow(direction, grid) {
-	// 	grid.map(cell => {
-	// 		if (cell.snake.roleOfSnake.includes('headOfSnake')) {
-	// 			this.SnakeFoodPosition.push(CellModel(headOfSnake.x, headOfSnake.y))
-	// 		}
-	// 		//cell.snake.AddRoleOfSnake("SnakeFood")
-	// 	})
-	// 	this.Movment(direction, grid)
-	// }
+    TakeFood(){
+        this.Snake.map(cell => {
+            if(cell.FindRoleOfSnake("headOfSnake")){
+                cell.AddRoleOfSnake("snakeFood")
+            }
+        })
+    }
 
+    //#region Utility
 	RemovePartOfSnake(cellToRemove) {
 		this.Snake = this.Snake.filter(cell => cell !== cellToRemove)
 	}
@@ -174,12 +167,6 @@ export class SnakeMovment {
 	FindPartOfSnakeBySnakeLength(snakeLength) {
 		return this.Snake.filter(cell => cell.snakeLength == snakeLength)[0]
 	}
+    //#endregion
 
-    TakeFood(){
-        this.Snake.map(cell => {
-            if(cell.FindRoleOfSnake("headOfSnake")){
-                cell.AddRoleOfSnake("snakeFood")
-            }
-        })
-    }
 }

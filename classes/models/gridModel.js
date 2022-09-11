@@ -1,5 +1,5 @@
 import { CellModel } from './cellModel.js'
-import { SnakeMovment } from './snakeMovment.js'
+import { SnakeMovment } from './snakeModel.js'
 
 export class GridModel {
 	dimension_x
