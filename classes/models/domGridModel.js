@@ -24,7 +24,7 @@ export class DomGridModel {
 	ClearGrid() {
 		let allCells = document.getElementsByClassName('cell')
 		Array.from(allCells).forEach(cell => {
-			cell.classList.remove('active', 'headOfSnake', 'bodyOfSnake', 'queueOfSnake', 'empty')
+			cell.classList.remove('active', 'headOfSnake', 'bodyOfSnake', 'queueOfSnake', 'empty', 'snakeFood')
 		})
 	}
 }
