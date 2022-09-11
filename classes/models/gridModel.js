@@ -19,11 +19,12 @@ export class GridModel {
 
 	CreateSnake(initPosition_x, initPosition_y) {
 		this.snakeMovment = new SnakeMovment(initPosition_x, initPosition_y)
+        return this.snakeMovment.Snake
 	}
 
 	SnakeMovmentUpdate(direction) {
-		snake = this.snakeMovment.Movment(direction)
-		this.gridCells = this.SetMainRoleOfCell(snake)
+		let snake = this.snakeMovment.Movment(direction)
+		this.SetMainRoleOfCell(snake)
 	}
 
 	ClearGrid() {
@@ -37,8 +38,8 @@ export class GridModel {
 
 	SetMainRoleOfCell(snake) {
 		this.gridCells.map(cell => {
-            let snakePiece = snake.filter(snakeCell => snakeCell.id == cell.id )
-            if (snakePiece.length >= 1) {
+            let snakePiece = snake.filter(snakeCell => snakeCell.id == cell.id )[0]
+            if (snakePiece) {
                 if (snakePiece.FindRoleOfSnake('queueOfSnake')) {
                     cell.UpdateHtmlClass('queueOfSnake')
                 } 
@@ -53,9 +54,9 @@ export class GridModel {
                         cell.UpdateHtmlClass('bodyOfSnake')
                     }
                 }
-                else{
-                    cell.UpdateHtmlClass("empty")
-                }
+            }
+            else{
+                cell.UpdateHtmlClass("empty")
             }
 		})
 	}

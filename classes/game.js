@@ -16,8 +16,8 @@ export class Game {
 	constructor() {
 		// create logic of grid and initialize the snake
 		this.gridModel = new GridModel(this.dimension_x, this.dimension_y)
-		this.gridModel.CreateSnake(this.initPosition_x, this.initPosition_y)
-        this.gridModel.SetMainRoleOfCell()
+		let snake = this.gridModel.CreateSnake(this.initPosition_x, this.initPosition_y)
+        this.gridModel.SetMainRoleOfCell(snake)
 		//create grid on dom
 		this.domGrid = new DomGridModel(this.gridModel.dimension_x, this.gridModel.dimension_y)
 		this.domGrid.UpdateGrid(this.gridModel.gridCells)

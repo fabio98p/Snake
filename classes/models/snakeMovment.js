@@ -6,24 +6,24 @@ export class SnakeMovment {
 	Snake = [] // todo: impklementare questo
 
 	constructor(initPosition_x, initPosition_y) {
-		this.Snake.push(new SnakePieceModel(initPosition_x, initPosition_y, Snake.length))
+		this.Snake.push(new SnakePieceModel(initPosition_x, initPosition_y, this.Snake.length))
 	}
 
 	Movment(direction) {
-		console.log(Snake)
-
+		console.log(this.Snake)
+        let prevSnakeHead = this.FindPartOfSnakeByRole('headOfSnake')
 		switch (direction) {
 			case 'left':
-				newIdHead = this.MovmentLeft(Snake.FindPartOfSnakeByRole('headOfSnake'))
+				this.MovmentLeft(prevSnakeHead)
 				break
 			case 'up':
-				newIdHead = this.MovmentUp(Snake.FindPartOfSnakeByRole('headOfSnake'))
+				this.MovmentUp(prevSnakeHead)
 				break
 			case 'right':
-				newIdHead = this.MovmentRight(Snake.FindPartOfSnakeByRole('headOfSnake'))
+				this.MovmentRight(prevSnakeHead)
 				break
 			case 'down':
-				newIdHead = this.MovmentDown(Snake.FindPartOfSnakeByRole('headOfSnake'))
+				this.MovmentDown(prevSnakeHead)
 				break
 		}
 
@@ -33,14 +33,14 @@ export class SnakeMovment {
 		if (lastPieceOfSnake.FindRoleOfSnake('snakeFood')) {
 			this.Snake.map(cell => {
 
-				if ((cell.snakeLenght = 1)) {
+				if ((cell.snakeLength = 1)) {
 					cell.RemoveRoleOfSnake('queueOfSnake')
 					if (!cell.FindRoleOfSnake('headOfSnake')){
                         cell.AddRoleOfSnake('bodyOfSnake')
                     }
 				}
 
-				if ((cell.snakeLenght = 0)) {
+				if ((cell.snakeLength = 0)) {
 					if (!cell.FindRoleOfSnake('queueOfSnake')){
                         cell.AddRoleOfSnake('queueOfSnake')
                     }
@@ -63,7 +63,7 @@ export class SnakeMovment {
             }
         }
 
-		return this.FindPartOfSnakeByRole('queueOfSnake')
+		return this.Snake
 	}
 
 	MovmentLeft(previusHead) {
@@ -77,10 +77,12 @@ export class SnakeMovment {
 			newIdHeadX = previusHead.x - 1
 			newIdHeadY = previusHead.y
 		}
-		this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, Snake.length))
+		this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, this.Snake.length))
         previusHead.RemoveRoleOfSnake("headOfSnake")
         previusHead.RemoveRoleOfSnake("queueOfSnake")
         previusHead.AddRoleOfSnake("bodyOfSnake")
+
+        this.Snake.map(cell => cell.snakeLength--)
 	}
 
 	MovmentRight(previusHead) {
@@ -94,10 +96,12 @@ export class SnakeMovment {
             newIdHeadX = previusHead.x + 1
             newIdHeadY = previusHead.y
         }
-        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, Snake.length))
+        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, this.Snake.length))
         previusHead.RemoveRoleOfSnake("headOfSnake")
         previusHead.RemoveRoleOfSnake("queueOfSnake")
         previusHead.AddRoleOfSnake("bodyOfSnake")
+        this.Snake.map(cell => cell.snakeLength--)
+
 	}
 
 	MovmentUp(previusHead) {
@@ -111,10 +115,12 @@ export class SnakeMovment {
             newIdHeadX = previusHead.x
             newIdHeadY = previusHead.y - 1
         }
-        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, Snake.length))
+        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, this.Snake.length))
         previusHead.RemoveRoleOfSnake("headOfSnake")
         previusHead.RemoveRoleOfSnake("queueOfSnake")
         previusHead.AddRoleOfSnake("bodyOfSnake")
+        this.Snake.map(cell => cell.snakeLength--)
+
 	}
 
 	MovmentDown(previusHead) {
@@ -128,10 +134,12 @@ export class SnakeMovment {
             newIdHeadX = previusHead.x
             newIdHeadY = previusHead.y + 1
         }
-        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, Snake.length))
+        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, this.Snake.length))
         previusHead.RemoveRoleOfSnake("headOfSnake")
         previusHead.RemoveRoleOfSnake("queueOfSnake")
         previusHead.AddRoleOfSnake("bodyOfSnake")
+        this.Snake.map(cell => cell.snakeLength--)
+
 	}
 
 	// MovmentWithGrow(direction, grid) {

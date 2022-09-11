@@ -11,6 +11,7 @@ export class SnakePieceModel extends CellModel {
 		this.roleOfSnake = []
 		this.direction = null
 		if (snakeLength == 0) this.CreateSnake()
+        if(snakeLength > 0) this.AddPartOfSnake(snakeLength)
 	}
 	UpdateSnakeLengthMinusOne() {
 		this.snakeLength = this.snakeLength - 1
@@ -29,7 +30,7 @@ export class SnakePieceModel extends CellModel {
 	}
 
 	AddPartOfSnake(snakeLength) {
-		this.snakeLength = 1
+		this.snakeLength = snakeLength + 1
 		this.AddRoleOfSnake('headOfSnake')
 		this.direction = null
 		if (snakeLength == 1) {
