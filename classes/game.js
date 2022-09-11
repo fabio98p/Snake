@@ -32,7 +32,7 @@ export class Game {
 				this.CounterMoves()
 				this.gridModel.SnakeMovmentUpdate(this.direction) //update the snake position on the grid
 				this.domGrid.UpdateGrid(this.gridModel.gridCells)
-			}, 10)
+			}, 500)
 			this.gamestarted = true
 		}
 	}

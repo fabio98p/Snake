@@ -18,15 +18,12 @@ export class GridModel {
 	}
 
 	CreateSnake(initPosition_x, initPosition_y) {
-		const initialPositionCell = this.gridCells.filter(cell => {
-			return cell.x === initPosition_x && cell.y === initPosition_y
-		})[0]
-		initialPositionCell.snake.CreateSnake()
+		this.snakeMovment = new SnakeMovment(initPosition_x, initPosition_y)
 	}
 
 	SnakeMovmentUpdate(direction) {
-		this.gridCells = this.snakeMovment.Movment(direction, this.gridCells)
-		this.gridCells = this.SetMainRoleOfCell(gridCells)
+		snake = this.snakeMovment.Movment(direction)
+		this.gridCells = this.SetMainRoleOfCell(snake)
 	}
 
 	ClearGrid() {
@@ -38,30 +35,33 @@ export class GridModel {
 		})
 	}
 
-	SetMainRoleOfCell() {
+	SetMainRoleOfCell(snake) {
 		this.gridCells.map(cell => {
-			if (cell.snake.FindRoleOfSnake('queueOfSnake')) {
-				cell.UpdateHtmlClass('queueOfSnake')
-			} 
-			else if(cell.snake.FindRoleOfSnake('headOfSnake')) {
-				cell.UpdateHtmlClass('headOfSnake')
-			}
-			else if(cell.snake.FindRoleOfSnake('bodyOfSnake')) {
-				if (cell.snake.FindRoleOfSnake('snakeFood')) {
-					cell.UpdateHtmlClass('snakeFood')
-				} 
-				else {
-					cell.UpdateHtmlClass('bodyOfSnake')
-				}
-			}
-			else{
-				cell.UpdateHtmlClass("empty")
-			}
+            let snakePiece = snake.filter(snakeCell => snakeCell.id == cell.id )
+            if (snakePiece.length >= 1) {
+                if (snakePiece.FindRoleOfSnake('queueOfSnake')) {
+                    cell.UpdateHtmlClass('queueOfSnake')
+                } 
+                else if(snakePiece.FindRoleOfSnake('headOfSnake')) {
+                    cell.UpdateHtmlClass('headOfSnake')
+                }
+                else if(snakePiece.FindRoleOfSnake('bodyOfSnake')) {
+                    if (snakePiece.FindRoleOfSnake('snakeFood')) {
+                        cell.UpdateHtmlClass('snakeFood')
+                    } 
+                    else {
+                        cell.UpdateHtmlClass('bodyOfSnake')
+                    }
+                }
+                else{
+                    cell.UpdateHtmlClass("empty")
+                }
+            }
 		})
 	}
 
 	GrowSnake() {
 		console.log('snake is growna')
-		this.SnakeMovment.MovmentWithGrow()
+		this.SnakeMovment.TakeFood()
 	}
 }

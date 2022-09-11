@@ -1,114 +1,177 @@
-import { CellModel } from "./cellModel.js"
+import { CellModel } from './cellModel.js'
+import { SnakePieceModel } from './snakePieceModel.js'
 
 export class SnakeMovment {
-	SnakeEatPosition = []
-    AllPartOfSnake = [] // todo: impklementare questo
-	constructor() {}
-	Movment(direction, grid) {
-		let snakeLengthNextRound = false
-		let previusHeadCell
-		let newIdHead
-		let newQueueLength
-		grid.map(cell => {
-			//if there is a food in a snake add the snakefood role
-			this.SnakeEatPosition.map(cellSnakeEat =>{
-				if(cell.id == cellSnakeEat.id && cell.FindRoleOfSnake("queueOfSnake")){
-                    this.SnakeEatPosition.filter(SnakeEatPositionCell => SnakeEatPositionCell.id !== cell.id)
+	// SnakeFoodPosition = []
+	Snake = [] // todo: impklementare questo
 
-					//qua mettere il fatto che si allunghi la coda
-					//percio cambiare per tutto lo snake la lenght i role e tutte le cose del caso
-				}
-				if (cell.id == cellSnakeEat.id) {
-					cell.AddRoleOfSnake("snakeFood")
-				}
-				else{
-					cell.snake.RemoveRoleOfSnake("snakeFood")
-				}
-			})
-			
-			if (cell.snake.snakeLength) {
-				if(cell.snake.roleOfSnake.includes('snakeFood') && cell.snake.roleOfSnake.includes('queueOfSnake')){
+	constructor(initPosition_x, initPosition_y) {
+		this.Snake.push(new SnakePieceModel(initPosition_x, initPosition_y, Snake.length))
+	}
 
-					cell.snake.UpdateSnakeLengthMinusOne()
-				}
-				//update previus head
-				if (cell.snake.roleOfSnake.includes('headOfSnake')) {
-					previusHeadCell = cell
-					cell.snake.UpdateOldSnakeHead()
-				}
+	Movment(direction) {
+		console.log(Snake)
 
-				//remove previus queue and find the new queue
-				if (cell.snake.roleOfSnake.includes('queueOfSnake')) {
-					if(cell.snake.roleOfSnake.includes('snakeFood')){
-						snakeLengthNextRound = true
-					}
-					newQueueLength = cell.snake.SnakeLength() + 1
-					cell.snake.RemovePartOfSnake()
-				}
-				if (snakeLengthNextRound) {
-					snakeLengthNextRound = false
-					grid.map(cell => {//da spostare sopra
-						if (cell.snake.snakeLength == null){
-							cell.snake.snakeLength++
-						}
-					})
-				}
-			}
-		})
 		switch (direction) {
 			case 'left':
-				newIdHead = this.MovmentLeft(previusHeadCell)
+				newIdHead = this.MovmentLeft(Snake.FindPartOfSnakeByRole('headOfSnake'))
 				break
 			case 'up':
-				newIdHead = this.MovmentUp(previusHeadCell)
+				newIdHead = this.MovmentUp(Snake.FindPartOfSnakeByRole('headOfSnake'))
 				break
 			case 'right':
-				newIdHead = this.MovmentRight(previusHeadCell)
+				newIdHead = this.MovmentRight(Snake.FindPartOfSnakeByRole('headOfSnake'))
 				break
 			case 'down':
-				newIdHead = this.MovmentDown(previusHeadCell)
+				newIdHead = this.MovmentDown(Snake.FindPartOfSnakeByRole('headOfSnake'))
 				break
 		}
-		grid.forEach(cell => {
-			if (cell.id == newIdHead) {
-				cell.snake.SetHeadOfSnake()
-			}
-			//add new queue previus finded
-			if (cell.snake.snakeLength == newQueueLength) {
-				cell.snake.SetQueueOfSnake()
-			}
-		})
-		return grid
+
+
+		//if the last piece has snakeFood update the length of the snake
+		let lastPieceOfSnake = this.FindPartOfSnakeBySnakeLength(0)
+		if (lastPieceOfSnake.FindRoleOfSnake('snakeFood')) {
+			this.Snake.map(cell => {
+
+				if ((cell.snakeLenght = 1)) {
+					cell.RemoveRoleOfSnake('queueOfSnake')
+					if (!cell.FindRoleOfSnake('headOfSnake')){
+                        cell.AddRoleOfSnake('bodyOfSnake')
+                    }
+				}
+
+				if ((cell.snakeLenght = 0)) {
+					if (!cell.FindRoleOfSnake('queueOfSnake')){
+                        cell.AddRoleOfSnake('queueOfSnake')
+                    }
+
+					cell.RemoveRoleOfSnake('bodyOfSnake')
+					cell.RemoveRoleOfSnake('headOfSnake')
+					cell.RemoveRoleOfSnake('snakeFood')
+				}
+
+				cell.snakeLength++
+			})
+		}
+        else{
+            this.RemovePartOfSnake(lastPieceOfSnake)
+            let queueOfSnake = this.FindPartOfSnakeBySnakeLength(1)
+            if (!queueOfSnake.FindRoleOfSnake("queueOfSnake")){
+                queueOfSnake.AddRoleOfSnake("queueOfSnake")
+                queueOfSnake.RemoveRoleOfSnake("bodyOfSnake")
+                queueOfSnake.RemoveRoleOfSnake("headOfSnake")
+            }
+        }
+
+		return this.FindPartOfSnakeByRole('queueOfSnake')
 	}
 
 	MovmentLeft(previusHead) {
+		let newIdHeadX
+		let newIdHeadY
 		//find the new id of head
-		if (previusHead.x == 0) return `x${11}_y${previusHead.y}`
-		else return `x${previusHead.x - 1}_y${previusHead.y}`
+		if (previusHead.x == 0) {
+			newIdHeadX = 11
+			newIdHeadY = previusHead.y
+		} else {
+			newIdHeadX = previusHead.x - 1
+			newIdHeadY = previusHead.y
+		}
+		this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, Snake.length))
+        previusHead.RemoveRoleOfSnake("headOfSnake")
+        previusHead.RemoveRoleOfSnake("queueOfSnake")
+        previusHead.AddRoleOfSnake("bodyOfSnake")
 	}
 
 	MovmentRight(previusHead) {
-		if (previusHead.x == 11) return `x${0}_y${previusHead.y}`
-		else return `x${previusHead.x + 1}_y${previusHead.y}`
+        let newIdHeadX
+		let newIdHeadY
+		if (previusHead.x == 11){
+            newIdHeadX = 0
+            newIdHeadY = previusHead.y
+        }
+		else{
+            newIdHeadX = previusHead.x + 1
+            newIdHeadY = previusHead.y
+        }
+        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, Snake.length))
+        previusHead.RemoveRoleOfSnake("headOfSnake")
+        previusHead.RemoveRoleOfSnake("queueOfSnake")
+        previusHead.AddRoleOfSnake("bodyOfSnake")
 	}
 
 	MovmentUp(previusHead) {
-		if (previusHead.y == 0) return `x${previusHead.x}_y${11}`
-		else return `x${previusHead.x}_y${previusHead.y - 1}`
+        let newIdHeadX
+		let newIdHeadY
+		if (previusHead.y == 0){
+            newIdHeadX = previusHead.x
+            newIdHeadY = 11
+        }
+		else{
+            newIdHeadX = previusHead.x
+            newIdHeadY = previusHead.y - 1
+        }
+        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, Snake.length))
+        previusHead.RemoveRoleOfSnake("headOfSnake")
+        previusHead.RemoveRoleOfSnake("queueOfSnake")
+        previusHead.AddRoleOfSnake("bodyOfSnake")
 	}
 
 	MovmentDown(previusHead) {
-		if (previusHead.y == 11) return `x${previusHead.x}_y${0}`
-		else return `x${previusHead.x}_y${previusHead.y + 1}`
+        let newIdHeadX
+		let newIdHeadY
+		if (previusHead.y == 11){
+            newIdHeadX = previusHead.x
+            newIdHeadY = 0
+        }
+		else{
+            newIdHeadX = previusHead.x
+            newIdHeadY = previusHead.y + 1
+        }
+        this.Snake.push(new SnakePieceModel(newIdHeadX, newIdHeadY, Snake.length))
+        previusHead.RemoveRoleOfSnake("headOfSnake")
+        previusHead.RemoveRoleOfSnake("queueOfSnake")
+        previusHead.AddRoleOfSnake("bodyOfSnake")
 	}
 
-	MovmentWithGrow(direction, grid){
-		grid.map(cell => {
-			if(cell.snake.roleOfSnake.includes('headOfSnake')){
-				this.SnakeEatPosition.push(CellModel(headOfSnake.x, headOfSnake.y))
-			}
-			//cell.snake.AddRoleOfSnake("SnakeFood")
-		})
-		this.Movment(direction, grid)
+	// MovmentWithGrow(direction, grid) {
+	// 	grid.map(cell => {
+	// 		if (cell.snake.roleOfSnake.includes('headOfSnake')) {
+	// 			this.SnakeFoodPosition.push(CellModel(headOfSnake.x, headOfSnake.y))
+	// 		}
+	// 		//cell.snake.AddRoleOfSnake("SnakeFood")
+	// 	})
+	// 	this.Movment(direction, grid)
+	// }
+
+	RemovePartOfSnake(cellToRemove) {
+		this.Snake = this.Snake.filter(cell => cell !== cellToRemove)
 	}
+
+	AddPartOfSnake(cellToAdd) {
+		if (!this.FindPartOfSnake(cellToAdd)) {
+			return this.Snake.push(cellToAdd)
+		}
+		return false
+	}
+
+	FindPartOfSnake(cellToFind) {
+		return this.Snake.includes(cellToFind)
+	}
+
+	FindPartOfSnakeByRole(roleToFind) {
+		return this.Snake.filter(cell => cell.FindRoleOfSnake(roleToFind))[0]
+	}
+
+	FindPartOfSnakeBySnakeLength(snakeLength) {
+		return this.Snake.filter(cell => cell.snakeLength == snakeLength)[0]
+	}
+
+    TakeFood(){
+        this.Snake.map(cell => {
+            if(cell.FindRoleOfSnake("headOfSnake")){
+                cell.AddPartOfSnake("snakeFood")
+            }
+        })
+    }
 }

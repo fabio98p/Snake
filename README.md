@@ -1,6 +1,13 @@
 
 todo:
 
+importante ==> modificare snakepiecemodel in modo che diventi un figlio che abbia copme eredita cellmodel,
+una volta fatto cio rimuovere snakepiecemodel e metterlo come figlio di snakemovment, rinominare snakemovment con snake
+
+
+
+
+
 sistemare estetica varia
 
 bugfix il bottone inizia gioco se premuto piu volte aumenta la velocita (disabilitarlo e al suo posto metterci uno stop/pausa gioco)

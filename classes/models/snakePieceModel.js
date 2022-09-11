@@ -1,11 +1,16 @@
-export class SnakePieceModel {
+import { CellModel } from './cellModel.js'
+
+export class SnakePieceModel extends CellModel {
 	snakeLength
 	roleOfSnake
 	direction
-	constructor() {
+	isSnake = true
+	constructor(x, y, snakeLength) {
+		super(x, y)
 		this.snakeLength = null
 		this.roleOfSnake = []
 		this.direction = null
+		if (snakeLength == 0) this.CreateSnake()
 	}
 	UpdateSnakeLengthMinusOne() {
 		this.snakeLength = this.snakeLength - 1
@@ -22,9 +27,20 @@ export class SnakePieceModel {
 		this.AddRoleOfSnake('queueOfSnake')
 		this.direction = null
 	}
+
+	AddPartOfSnake(snakeLength) {
+		this.snakeLength = 1
+		this.AddRoleOfSnake('headOfSnake')
+		this.direction = null
+		if (snakeLength == 1) {
+			this.AddRoleOfSnake('queueOfSnake')
+		}
+	}
+
 	SnakeOldHead() {
 		this.snakeLength = 2
 		this.AddRoleOfSnake('bodyOfSnake')
+		this.RemoveRoleOfSnake('headOfSnake')
 		this.direction = null
 	}
 	SnakeLength() {
@@ -48,17 +64,17 @@ export class SnakePieceModel {
 	}
 
 	RemoveRoleOfSnake(roleToRemove) {
-        this.SnakeEatPosition.filter(role => role !== roleToRemove)
+		this.roleOfSnake.filter(role => role !== roleToRemove)
 	}
 
 	AddRoleOfSnake(roleToAdd) {
 		if (!this.FindRoleOfSnake(roleToAdd)) {
 			return this.roleOfSnake.push(roleToAdd)
 		}
-        return false
+		return false
 	}
 
-	FindRoleOfSnake(roleToFind){
+	FindRoleOfSnake(roleToFind) {
 		return this.roleOfSnake.includes(roleToFind)
 	}
 }
