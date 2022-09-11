@@ -65,7 +65,7 @@ export class SnakePieceModel extends CellModel {
 	}
 
 	RemoveRoleOfSnake(roleToRemove) {
-		this.roleOfSnake.filter(role => role !== roleToRemove)
+		this.roleOfSnake = this.roleOfSnake.filter(role => role !== roleToRemove)
 	}
 
 	AddRoleOfSnake(roleToAdd) {

@@ -63,6 +63,6 @@ export class GridModel {
 
 	GrowSnake() {
 		console.log('snake is growna')
-		this.SnakeMovment.TakeFood()
+		this.snakeMovment.TakeFood()
 	}
 }

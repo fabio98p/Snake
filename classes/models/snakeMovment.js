@@ -33,14 +33,14 @@ export class SnakeMovment {
 		if (lastPieceOfSnake.FindRoleOfSnake('snakeFood')) {
 			this.Snake.map(cell => {
 
-				if ((cell.snakeLength = 1)) {
+				if ((cell.snakeLength == 1)) {
 					cell.RemoveRoleOfSnake('queueOfSnake')
 					if (!cell.FindRoleOfSnake('headOfSnake')){
                         cell.AddRoleOfSnake('bodyOfSnake')
                     }
 				}
 
-				if ((cell.snakeLength = 0)) {
+				if ((cell.snakeLength == 0)) {
 					if (!cell.FindRoleOfSnake('queueOfSnake')){
                         cell.AddRoleOfSnake('queueOfSnake')
                     }
@@ -178,7 +178,7 @@ export class SnakeMovment {
     TakeFood(){
         this.Snake.map(cell => {
             if(cell.FindRoleOfSnake("headOfSnake")){
-                cell.AddPartOfSnake("snakeFood")
+                cell.AddRoleOfSnake("snakeFood")
             }
         })
     }
